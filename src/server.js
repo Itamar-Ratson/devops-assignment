@@ -1,10 +1,12 @@
-const express = require('express');
+import express from 'express';
+import { name } from '../package.json' with { type: 'json' };
+
 const app = express();
 
 app.get('/status', (req, res) => {
   res.json({
     status: 'ok',
-    service: 'devops-assignment',
+    service: name,
     timestamp: new Date().toISOString()
   });
 });
