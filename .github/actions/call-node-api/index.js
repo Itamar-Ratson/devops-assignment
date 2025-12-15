@@ -10,7 +10,6 @@ try {
   const { status, service, timestamp } = await response.json();
 
   const markdown = `
-## API Status
 - Status: ${status}
 - Service: ${service}
 - Timestamp: ${timestamp}
