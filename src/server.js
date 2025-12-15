@@ -1,5 +1,5 @@
 import express from 'express';
-import { name } from '../package.json' with { type: 'json' };
+import pkg from '../package.json' with { type: 'json' };
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3000;
 app.get('/status', (req, res) => {
   res.json({
     status: 'ok',
-    service: name,
+    service: pkg.name,
     timestamp: new Date().toISOString()
   });
 });
