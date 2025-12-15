@@ -1,0 +1,8 @@
+{
+  "name": "devops-assignment",
+  "version": "1.0.0",
+  "description": "Node.js API with GitHub Actions automation",
+  "scripts": {
+    "start": "node src/server.js"
+  }
+}
