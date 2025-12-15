@@ -1,0 +1,30 @@
+name: Call API
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  call-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npm start &
+      - run: sleep 3
+      - run: npm ci
+        working-directory: .github/actions/call-node-api
+      - uses: ./.github/actions/call-node-api
+        with:
+          api-url: http://localhost:3000/status
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add README.md
+          git diff --staged --quiet || git commit -m "Update API status"
+          git push
