@@ -5,10 +5,10 @@ A Node.js API with GitHub Actions automation that updates this README with API s
 ## Run Locally
 
 ```bash
-docker compose up --build
+docker compose up --build -d
+curl http://localhost:3000/status
 ```
 
-API runs by default on `http://localhost:3000`
 Can change the port in the docker-compose.yaml file
 
 ## Workflow
