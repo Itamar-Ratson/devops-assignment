@@ -2,6 +2,7 @@ import express from 'express';
 import { name } from '../package.json' with { type: 'json' };
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.get('/status', (req, res) => {
   res.json({
@@ -11,4 +12,4 @@ app.get('/status', (req, res) => {
   });
 });
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
