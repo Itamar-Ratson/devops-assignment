@@ -23,4 +23,8 @@ Can change the port in the docker-compose.yaml file
 ## API Status
 
 <!-- API_STATUS_START -->
+## API Status
+- Status: ok
+- Service: itamar-devops-assignment
+- Timestamp: 2025-12-15T16:33:46.069Z
 <!-- API_STATUS_END -->
