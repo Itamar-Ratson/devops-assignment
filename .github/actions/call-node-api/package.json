@@ -1,0 +1,7 @@
+{
+  "name": "call-node-api",
+  "type": "module",
+  "dependencies": {
+    "@actions/core": "^1.11.1"
+  }
+}
