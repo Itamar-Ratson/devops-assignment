@@ -5,8 +5,7 @@ A Node.js API with GitHub Actions automation that updates this README with API s
 ## Run Locally
 
 ```bash
-npm install
-npm start
+docker compose up --build
 ```
 
 API runs on `http://localhost:3000`
