@@ -7,7 +7,11 @@ try {
   const response = await fetch(apiUrl);
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-  const { status, service, timestamp } = await response.json();
+  const data = await response.json();
+  const { status, service, timestamp } = data;
+  if (!status || !service || !timestamp) {
+    throw new Error(`Missing fields in response: ${JSON.stringify(data)}`);
+  }
 
   const markdown = `
 - Status: ${status}

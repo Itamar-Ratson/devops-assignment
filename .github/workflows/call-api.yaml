@@ -24,9 +24,11 @@ jobs:
       - run: |
           npm start &
           for i in $(seq 1 ${{ env.HEALTH_CHECK_RETRIES }}); do
-            curl -s http://localhost:${{ env.PORT }}/status && break
+            curl -sf http://localhost:${{ env.PORT }}/status && exit 0
             sleep ${{ env.HEALTH_CHECK_INTERVAL }}
           done
+          echo "Health check failed"
+          exit 1
       - run: npm ci
         working-directory: .github/actions/call-node-api
       - uses: ./.github/actions/call-node-api
