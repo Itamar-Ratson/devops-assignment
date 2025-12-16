@@ -6,6 +6,9 @@ on:
 permissions:
   contents: write
 
+env:
+  PORT: 3000
+
 jobs:
   call-api:
     runs-on: ubuntu-24.04
@@ -16,12 +19,14 @@ jobs:
           node-version: "20"
       - run: npm ci
       - run: npm start &
+        env:
+          PORT: ${{ env.PORT }}
       - run: sleep 3
       - run: npm ci
         working-directory: .github/actions/call-node-api
       - uses: ./.github/actions/call-node-api
         with:
-          api-url: http://localhost:3000/status
+          api-url: http://localhost:${{ env.PORT }}/status
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
