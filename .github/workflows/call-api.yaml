@@ -18,10 +18,12 @@ jobs:
         with:
           node-version: "20"
       - run: npm ci
-      - run: npm start &
-        env:
-          PORT: ${{ env.PORT }}
-      - run: sleep 3
+      - run: |
+          npm start &
+          for i in {1..30}; do
+            curl -s http://localhost:${{ env.PORT }}/status && break
+            sleep 1
+          done
       - run: npm ci
         working-directory: .github/actions/call-node-api
       - uses: ./.github/actions/call-node-api
