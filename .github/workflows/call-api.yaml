@@ -8,6 +8,8 @@ permissions:
 
 env:
   PORT: 3000
+  HEALTH_CHECK_RETRIES: 30
+  HEALTH_CHECK_INTERVAL: 0.1
 
 jobs:
   call-api:
@@ -20,9 +22,9 @@ jobs:
       - run: npm ci
       - run: |
           npm start &
-          for i in {1..30}; do
+          for i in $(seq 1 ${{ env.HEALTH_CHECK_RETRIES }}); do
             curl -s http://localhost:${{ env.PORT }}/status && break
-            sleep 1
+            sleep ${{ env.HEALTH_CHECK_INTERVAL }}
           done
       - run: npm ci
         working-directory: .github/actions/call-node-api
