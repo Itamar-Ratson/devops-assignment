@@ -1,8 +1,14 @@
 # DevOps Assignment
 
-A Node.js API with GitHub Actions automation that updates this README with API status.
+A Node.js API + custom GitHub Action that auto-updates this README with API status.
 
-## Run Locally
+## What It Does
+
+- **API**: Express server with `GET /status` returning JSON (status, service name, timestamp)
+- **Custom Action**: Calls API, generates markdown, updates README between marker comments
+- **Workflow**: Orchestrates the above and commits changes back to repo
+
+## Local Testing
 
 ```bash
 docker compose up --build -d
@@ -10,20 +16,20 @@ curl http://localhost:3000/status
 docker compose down
 ```
 
-Can change the port in the docker-compose.yaml file
+## Trigger Workflow
 
-## Workflow
+GitHub → Actions → "Call API" → Run workflow
 
-1. Trigger manually via `workflow_dispatch`
-2. Starts Node.js API in background
-3. Custom action calls (GET) `/status` endpoint
-4. README.md updated with response
-5. Changes committed back to repo
+Or via CLI:
+
+```bash
+gh workflow run call-api.yaml
+```
 
 ## API Status
 
 <!-- API_STATUS_START -->
 - Status: ok
 - Service: itamar-devops-assignment
-- Timestamp: 2025-12-15T16:33:46.069Z
+- Timestamp: 2025-12-16T10:27:39.143Z
 <!-- API_STATUS_END -->

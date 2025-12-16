@@ -6,22 +6,32 @@ on:
 permissions:
   contents: write
 
+env:
+  PORT: 3000
+  HEALTH_CHECK_RETRIES: 30
+  HEALTH_CHECK_INTERVAL: 0.1
+
 jobs:
   call-api:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
       - run: npm ci
-      - run: npm start &
-      - run: sleep 3
+      - run: |
+          npm start &
+          for i in $(seq 1 ${{ env.HEALTH_CHECK_RETRIES }}); do
+            curl -s http://localhost:${{ env.PORT }}/status && break
+            sleep ${{ env.HEALTH_CHECK_INTERVAL }}
+          done
       - run: npm ci
         working-directory: .github/actions/call-node-api
       - uses: ./.github/actions/call-node-api
         with:
-          api-url: http://localhost:3000/status
+          api-url: http://localhost:${{ env.PORT }}/status
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
